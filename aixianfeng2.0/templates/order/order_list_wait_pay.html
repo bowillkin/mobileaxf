@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <h3>待付款订单列表 <a href="/users/mine/">返回个人列表</a> </h3>
+
+    <hr style="border: 2px solid lightgray">
+
+    <ul>
+        <!--订单信息展示-->
+
+            <li>
+                {% for order in orders %}
+                    <h4>
+                    <p><!-- 订单id -->订单id:{{ order.id }}</p>
+                    {% for ordergood in order.ordergoodsmodel_set.all %}
+                    <p><!-- 数量 -->商品数量:{{ ordergood.goods_num }}</p>
+                        <!--展示商品的名称-->商品名称:{{ ordergood.goods.productlongname }}
+                        <li>
+                            <img src="{{ ordergood.goods.productimg }}" alt="">
+                        </li>
+                    {% endfor %}
+                    </h4>
+                        <!--处理结束-->
+                <a href="/users/alipay/{{ order.id }}" style="margin-left: 100px; font-size: 28px; color:red; background-color: lightblue; border: 1px solid black">老板结账</a>
+
+                        <hr>
+                {% endfor %}
+            </li>
+
+        <!--订单处理结束-->
+
+
+    </ul>
+
+
+{% endblock %}
